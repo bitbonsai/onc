@@ -1,38 +1,38 @@
 #!/usr/bin/env node
 import meow from 'meow';
+import chalk from 'chalk';
 import process from 'node:process';
 import { checkRequiredTools } from './utils/check-tools.js';
 
 const cli = meow(`
-  Usage
-    $ gan <command> [options]
+  ${chalk.cyan('🌱 gan')}  ${chalk.gray('Generate App Now')}
 
-  Commands
-    new [name]      Create a new project
-    dev            Start development environment
-    docker         Docker related commands
-    db             Database related commands
-    deploy         Deploy to fly.io
+  ${chalk.bold('Usage:')}
+    ${chalk.green('$')} gan <command> [options]
 
-  Options
-    --help         Show this help message
-    --version      Show version number
+  ${chalk.bold('Commands:')}
+    ${chalk.blue('new')} [name]      Create a new project
+    ${chalk.blue('dev')}            Start development environment
+    ${chalk.blue('docker')}         Docker related commands
+    ${chalk.blue('db')}             Database related commands
+    ${chalk.blue('deploy')}         Deploy to fly.io
 
-  Examples
-    $ gan new my-awesome-app
-    $ gan dev
-    $ gan deploy
+  ${chalk.bold('Options:')}
+    ${chalk.magenta('--help')}        Show this help message
+    ${chalk.magenta('--version')}     Show version number
 
-  For more info, visit:
-    https://github.com/yourusername/gan
+  ${chalk.bold('Examples:')}
+    ${chalk.green('$')} gan new my-awesome-app
+    ${chalk.green('$')} gan dev
+    ${chalk.green('$')} gan deploy
+
+  ${chalk.gray('For more info, visit: https://github.com/bitbonsai/gan')}
 `, {
     importMeta: import.meta,
     flags: {
         // We'll add flags later as needed
     },
     description: false,
-    // Using built-in Node.js colors
-    booleanDefault: undefined,
 });
 
 async function run() {
