@@ -18,7 +18,7 @@ npm install -g gan
 
 ## Quick Start
 
-**# Create a project**
+### Create a project
 
 ```bash
 gan new my-cool-project
