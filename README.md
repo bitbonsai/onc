@@ -16,18 +16,6 @@ Just a tiny tool to help you spin up web projects faster. No magic, just conveni
 npm install -g gan
 ```
 
-### yarn
-
-```bash
-yarn global add gan
-```
-
-### pnpm
-
-```bash
-pnpm add -g gan
-```
-
 ## Quick Start
 
 **# Create a project**
@@ -36,13 +24,13 @@ pnpm add -g gan
 gan new my-cool-project
 ```
 
-**# Run local development**
+### Run local development
 
 ```bash
 gan dev
 ```
 
-**# Deploy to production**
+### Deploy to production
 
 ```bash
 gan deploy
