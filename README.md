@@ -1,6 +1,8 @@
 # 🌱 onc
 
-> **O**ne **N**ice **C**L (Can also be a short for **onc**e... but in reality it's hard to find a memorable 3 letter npm package name available)
+> **O**ne **N**ice **C**L 
+
+(Can also be a short for **onc**e... but in reality it's hard to find a memorable 3 letter npm package name available)
 
 Built by [BitBonsai](https://github.com/bitbonsai)
 
