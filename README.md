@@ -1,6 +1,6 @@
-# 🌱 gan
+# 🌱 onc
 
-> **G**enerate **A**pp **N**ow - A simple CLI for building web apps
+> **O**ne **N**ice **C**L (Can also be a short for once)I
 
 Built by [BitBonsai](https://github.com/bitbonsai)
 
@@ -13,7 +13,7 @@ Just a tiny tool to help you spin up web projects faster. No magic, just conveni
 ### npm
 
 ```bash
-npm install -g gan
+npm install -g onc
 ```
 
 ## Quick Start
@@ -21,19 +21,19 @@ npm install -g gan
 ### Create a project
 
 ```bash
-gan new my-cool-project
+onc new my-cool-project
 ```
 
 ### Run local development
 
 ```bash
-gan dev
+onc dev
 ```
 
 ### Deploy to production
 
 ```bash
-gan deploy
+onc deploy
 ```
 
 ## What You Get
@@ -45,11 +45,11 @@ gan deploy
 
 ## Commands That Actually Work
 
-- `gan new` - Start a new project
-- `gan dev` - Run local development
-- `gan docker` - Docker-related commands
-- `gan db` - Database management
-- `gan deploy` - Ship it to production
+- `onc new` - Start a new project
+- `onc dev` - Run local development
+- `onc docker` - Docker-related commands
+- `onc db` - Database management
+- `onc deploy` - Ship it to production
 
 ## Project Structure
 

@@ -5,10 +5,10 @@ import process from 'node:process';
 import { checkRequiredTools } from './utils/check-tools.js';
 
 const cli = meow(`
-  ${chalk.cyan('🌱 gan')}  ${chalk.gray('Generate App Now')}
+  ${chalk.cyan('🌱 onc')}  ${chalk.gray('Generate App Now')}
 
   ${chalk.bold('Usage:')}
-    ${chalk.green('$')} gan <command> [options]
+    ${chalk.green('$')} onc <command> [options]
 
   ${chalk.bold('Commands:')}
     ${chalk.blue('new')} [name]      Create a new project
@@ -22,11 +22,11 @@ const cli = meow(`
     ${chalk.magenta('--version')}     Show version number
 
   ${chalk.bold('Examples:')}
-    ${chalk.green('$')} gan new my-awesome-app
-    ${chalk.green('$')} gan dev
-    ${chalk.green('$')} gan deploy
+    ${chalk.green('$')} onc new my-awesome-app
+    ${chalk.green('$')} onc dev
+    ${chalk.green('$')} onc deploy
 
-  ${chalk.gray('For more info, visit: https://github.com/bitbonsai/gan')}
+  ${chalk.gray('For more info, visit: https://github.com/bitbonsai/onc')}
 `, {
     importMeta: import.meta,
     flags: {
