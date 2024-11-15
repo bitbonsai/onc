@@ -1,34 +1,33 @@
 #!/usr/bin/env node
 import meow from "meow";
-import chalk from "chalk";
+import kleur from "kleur";
 import process from "node:process";
 import { checkRequiredTools } from "./utils/check-tools.js";
-import { createProject } from "./commands/new.js";
 
 const cli = meow(
   `
-  ${chalk.cyan("🌱 onc")}  ${chalk.gray("Generate App Now")}
+  ${kleur.cyan("🌱 onc")}  ${kleur.gray("One Nice CLI")}
 
-  ${chalk.bold("Usage:")}
-    ${chalk.green("$")} onc <command> [options]
+  ${kleur.bold("Usage:")}
+    ${kleur.green("$")} onc <command> [options]
 
-  ${chalk.bold("Commands:")}
-    ${chalk.blue("new")} [name]      Create a new project
-    ${chalk.blue("dev")}            Start development environment
-    ${chalk.blue("docker")}         Docker related commands
-    ${chalk.blue("db")}             Database related commands
-    ${chalk.blue("deploy")}         Deploy to fly.io
+  ${kleur.bold("Commands:")}
+    ${kleur.blue("new")} [name]      Create a new project
+    ${kleur.blue("dev")}            Start development environment
+    ${kleur.blue("docker")}         Docker related commands
+    ${kleur.blue("db")}             Database related commands
+    ${kleur.blue("deploy")}         Deploy to fly.io
 
-  ${chalk.bold("Options:")}
-    ${chalk.magenta("--help")}        Show this help message
-    ${chalk.magenta("--version")}     Show version number
+  ${kleur.bold("Options:")}
+    ${kleur.magenta("--help")}        Show this help message
+    ${kleur.magenta("--version")}     Show version number
 
-  ${chalk.bold("Examples:")}
-    ${chalk.green("$")} onc new my-awesome-app
-    ${chalk.green("$")} onc dev
-    ${chalk.green("$")} onc deploy
+  ${kleur.bold("Examples:")}
+    ${kleur.green("$")} onc new my-awesome-app
+    ${kleur.green("$")} onc dev
+    ${kleur.green("$")} onc deploy
 
-  ${chalk.gray("For more info, visit: https://github.com/bitbonsai/onc")}
+  ${kleur.gray("For more info, visit: https://github.com/bitbonsai/onc")}
 `,
   {
     importMeta: import.meta,
@@ -53,19 +52,26 @@ async function run() {
 
   switch (command) {
     case "new": {
-      const projectName = args[0];
-      if (!projectName) {
-        console.error(chalk.red("Project name is required"));
-        process.exit(1);
-      }
-      await createProject(projectName);
+      console.log(kleur.cyan("Creating new project..."));
       break;
     }
-    // ... rest of cases
+    case "dev": {
+      console.log(kleur.cyan("Starting development environment..."));
+      break;
+    }
+    case "deploy": {
+      console.log(kleur.cyan("Deploying..."));
+      break;
+    }
+    default: {
+      console.log(kleur.red(`Unknown command: ${command}`));
+      cli.showHelp(0);
+      process.exit(1);
+    }
   }
 }
 
 run().catch((error) => {
-  console.error("\x1b[31m%s\x1b[0m", "Error:", error.message); // Red
+  console.error(kleur.red("Error:"), error.message);
   process.exit(1);
 });

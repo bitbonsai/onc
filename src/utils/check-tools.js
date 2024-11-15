@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 import { promisify } from "util";
-import chalk from "chalk";
+import kleur from "kleur";
 
 const execAsync = promisify(exec);
 
@@ -33,9 +33,9 @@ export async function checkRequiredTools(command) {
     try {
       await execAsync(tool.command);
     } catch (error) {
-      console.error(chalk.red(`\n${name} is not installed`));
+      console.error(kleur.red(`\n${name} is not installed`));
       console.log("\nTo install:");
-      console.log(chalk.blue(tool.installGuide));
+      console.log(kleur.blue(tool.installGuide));
       console.log("\nThen try again.");
       process.exit(1);
     }
