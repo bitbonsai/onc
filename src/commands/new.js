@@ -119,29 +119,21 @@ export async function createProject(name) {
     await createAstro(projectPath, spinner);
     spinner.succeed("Astro setup completed");
 
-    // Final success message with instructions
+    // Final success message with CLI-based instructions
     console.log("\n" + kleur.bold("Project created successfully! 🎉"));
 
-    console.log("\n" + kleur.bold("To start PocketBase:"));
-    console.log(kleur.blue(`  cd ${name}/apps/pb`));
-    console.log(kleur.blue("  npm install"));
-    console.log(kleur.blue("  npm run docker:build"));
-    console.log(kleur.blue("  npm run docker:run"));
+    console.log("\n" + kleur.bold("Next steps:"));
+    console.log(kleur.blue(`  cd ${name}`));
+    console.log(kleur.blue("  onc pb setup    # First-time PocketBase setup"));
+    console.log(kleur.blue("  onc pb start    # Start PocketBase"));
     console.log(
-      "\nPocketBase will be available at: " +
-        kleur.green("http://localhost:8090"),
-    );
-    console.log(
-      "Admin UI will be available at: " +
-        kleur.green("http://localhost:8090/_/"),
+      kleur.blue("  onc start       # Start both PocketBase and Astro"),
     );
 
-    console.log("\n" + kleur.bold("To start Astro:"));
-    console.log(kleur.blue(`  cd ${name}/apps/web`));
-    console.log(kleur.blue("  npm run dev"));
-    console.log(
-      "\nAstro will be available at: " + kleur.green("http://localhost:4321"),
-    );
+    console.log("\n" + kleur.bold("Available endpoints:"));
+    console.log("PocketBase:  " + kleur.green("http://localhost:8090"));
+    console.log("Admin UI:    " + kleur.green("http://localhost:8090/_/"));
+    console.log("Astro:       " + kleur.green("http://localhost:4321"));
 
     console.log("\n" + kleur.bold("Project structure:"));
     console.log(kleur.blue(`${name}/`));

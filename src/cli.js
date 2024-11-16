@@ -6,6 +6,8 @@ import { checkRequiredTools } from "./utils/check-tools.js";
 import { createProject } from "./commands/new.js";
 import { handleDockerCommand } from "./commands/docker.js";
 import { handleDbCommand } from "./commands/db.js";
+import { handlePocketBaseCommand } from "./commands/pb.js";
+import { handleStartCommand } from "./commands/start.js";
 
 const cli = meow(
   `
@@ -16,7 +18,12 @@ const cli = meow(
 
   ${kleur.bold("Commands:")}
     ${kleur.blue("new")} [name]      Create a new project
-    ${kleur.blue("dev")}            Start development environment
+    ${kleur.blue("start")}          Start development environment
+
+    ${kleur.bold("PocketBase Commands:")}
+    ${kleur.blue("pb setup")}        First-time PocketBase setup
+    ${kleur.blue("pb start")}        Start PocketBase
+    ${kleur.blue("pb stop")}         Stop PocketBase
 
     ${kleur.bold("Docker Commands:")}
     ${kleur.blue("docker build")}    Build Docker image
@@ -30,13 +37,11 @@ const cli = meow(
     ${kleur.blue("db backup")}       Create database backup
     ${kleur.blue("db migrate")}      Create new migration
 
-    ${kleur.blue("deploy")}         Deploy to fly.io
-
   ${kleur.bold("Examples:")}
     ${kleur.green("$")} onc new my-awesome-app
+    ${kleur.green("$")} onc pb setup
+    ${kleur.green("$")} onc start
     ${kleur.green("$")} onc docker logs
-    ${kleur.green("$")} onc db studio
-    ${kleur.green("$")} onc deploy
 
   ${kleur.gray("For more info, visit: https://github.com/bitbonsai/onc")}
 `,
@@ -72,6 +77,37 @@ async function run() {
       await createProject(projectName);
       break;
     }
+    case "start": {
+      console.log(kleur.cyan("Starting development environment..."));
+      // TODO: Implement start command to run both PB and Astro
+      break;
+    }
+    case "pb": {
+      if (!subcommand) {
+        console.error(kleur.red("PocketBase subcommand is required"));
+        console.log(kleur.blue("\nAvailable commands:"));
+        console.log("  setup    First-time PocketBase setup");
+        console.log("  start    Start PocketBase");
+        console.log("  stop     Stop PocketBase");
+        process.exit(1);
+      }
+      // TODO: Implement PocketBase commands
+      switch (subcommand) {
+        case "setup":
+          console.log(kleur.cyan("Setting up PocketBase..."));
+          break;
+        case "start":
+          console.log(kleur.cyan("Starting PocketBase..."));
+          break;
+        case "stop":
+          console.log(kleur.cyan("Stopping PocketBase..."));
+          break;
+        default:
+          console.error(kleur.red(`Unknown PocketBase command: ${subcommand}`));
+          process.exit(1);
+      }
+      break;
+    }
     case "docker": {
       if (!subcommand) {
         console.error(kleur.red("Docker subcommand is required"));
@@ -98,14 +134,20 @@ async function run() {
       await handleDbCommand(subcommand, args);
       break;
     }
-    case "dev": {
-      console.log(kleur.cyan("Starting development environment..."));
-      // TODO: Implement dev command
+    case "start": {
+      await handleStartCommand();
       break;
     }
-    case "deploy": {
-      console.log(kleur.cyan("Deploying..."));
-      // TODO: Implement deploy command
+    case "pb": {
+      if (!subcommand) {
+        console.error(kleur.red("PocketBase subcommand is required"));
+        console.log(kleur.blue("\nAvailable commands:"));
+        console.log("  setup    First-time PocketBase setup");
+        console.log("  start    Start PocketBase");
+        console.log("  stop     Stop PocketBase");
+        process.exit(1);
+      }
+      await handlePocketBaseCommand(subcommand);
       break;
     }
     default: {

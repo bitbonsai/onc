@@ -1,0 +1,30 @@
+{
+  "name": "test",
+  "private": true,
+  "version": "0.0.1",
+  "description": "PocketBase deployment with Docker and fly.io",
+  "scripts": {
+    "dev": "npm run docker:start || npm run docker:run",
+    "docker:build": "docker build -t test-pb .",
+    "docker:run": "docker run --name test-pb -d -p 8090:8090 -v ./pb_data:/pb/pb_data -v ./pb_migrations:/pb/pb_migrations -v ./pb_hooks:/pb/pb_hooks test-pb",
+    "docker:start": "docker start test-pb",
+    "docker:stop": "docker stop test-pb || true",
+    "docker:rm": "docker rm test-pb || true",
+    "docker:rebuild": "npm run docker:stop && npm run docker:rm && npm run docker:build && npm run docker:run",
+    "docker:logs": "docker logs test-pb",
+    "docker:logs:follow": "docker logs -f test-pb",
+    "docker:shell": "docker exec -it test-pb sh",
+    "db:studio": "open http://localhost:8090/_/",
+    "db:backup": "docker exec test cp /pb/pb_data/data.db /pb/pb_data/backup_$(date +%Y%m%d_%H%M%S).db",
+    "db:migrate:create": "echo 'migration_name_here' > ./pb_migrations/$(date +%Y%m%d_%H%M%S)_migration.js",
+    "deploy": "fly deploy"
+  },
+  "keywords": [
+    "pocketbase",
+    "fly",
+    "CMS",
+    "deployment",
+    "CI/CD"
+  ],
+  "license": "MIT"
+}
