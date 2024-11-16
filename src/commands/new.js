@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "fs/promises";
 import kleur from "kleur";
 import ora from "ora";
 import fetch from "node-fetch";
-import { exec } from "child_process";
+import { exec, spawn } from "child_process";
 import { promisify } from "util";
 import generatePackageJson from "../templates/pb-package.json.js";
 import generateDockerfile from "../templates/dockerfile.js";
@@ -65,15 +65,38 @@ async function createAstro(projectPath, spinner) {
     // Create web directory
     await mkdir(`${projectPath}/apps/web`, { recursive: true });
 
-    // Initialize Astro with npm create
-    const command =
-      "npm create astro@latest apps/web -- --template minimal --install --no-git --typescript strict --skip-houston";
-    await execAsync(command, {
-      cwd: projectPath,
-      stdio: "inherit",
-    });
+    return new Promise((resolve, reject) => {
+      const process = spawn(
+        "npx",
+        [
+          "create-astro@latest",
+          "--template",
+          "basics",
+          "--install",
+          "--no-git",
+          "--skip-houston",
+          "--yes",
+          ".",
+        ],
+        {
+          cwd: `${projectPath}/apps/web`,
+          stdio: "inherit", // This will show the output directly
+          shell: true,
+        },
+      );
 
-    spinner.succeed("Astro app created successfully");
+      process.on("close", (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`Astro creation failed with code ${code}`));
+        }
+      });
+
+      process.on("error", (err) => {
+        reject(new Error(`Failed to start Astro creation: ${err.message}`));
+      });
+    });
   } catch (error) {
     throw new Error(`Failed to create Astro app: ${error.message}`);
   }
@@ -84,7 +107,7 @@ export async function createProject(name) {
   const projectPath = `./${name}`;
 
   try {
-    // Create root project directory
+    // Create root directory
     await mkdir(projectPath);
     await mkdir(`${projectPath}/apps`);
 
@@ -94,12 +117,12 @@ export async function createProject(name) {
 
     // Create Astro app
     await createAstro(projectPath, spinner);
+    spinner.succeed("Astro setup completed");
 
-    // Final success message
-    console.log("\n" + kleur.bold("Project created successfully! Next steps:"));
+    // Final success message with instructions
+    console.log("\n" + kleur.bold("Project created successfully! 🎉"));
 
-    // PocketBase instructions
-    console.log("\n" + kleur.bold("Start PocketBase:"));
+    console.log("\n" + kleur.bold("To start PocketBase:"));
     console.log(kleur.blue(`  cd ${name}/apps/pb`));
     console.log(kleur.blue("  npm install"));
     console.log(kleur.blue("  npm run docker:build"));
@@ -113,13 +136,31 @@ export async function createProject(name) {
         kleur.green("http://localhost:8090/_/"),
     );
 
-    // Astro instructions
-    console.log("\n" + kleur.bold("Start Astro dev server:"));
+    console.log("\n" + kleur.bold("To start Astro:"));
     console.log(kleur.blue(`  cd ${name}/apps/web`));
     console.log(kleur.blue("  npm run dev"));
     console.log(
-      "\nAstro will be available at: " + kleur.green("http://localhost:3000"),
+      "\nAstro will be available at: " + kleur.green("http://localhost:4321"),
     );
+
+    console.log("\n" + kleur.bold("Project structure:"));
+    console.log(kleur.blue(`${name}/`));
+    console.log(kleur.blue("├── apps/"));
+    console.log(kleur.blue("│   ├── web/          # Astro app"));
+    console.log(kleur.blue("│   │   ├── src/"));
+    console.log(kleur.blue("│   │   │   ├── components/"));
+    console.log(kleur.blue("│   │   │   ├── layouts/"));
+    console.log(kleur.blue("│   │   │   └── pages/"));
+    console.log(kleur.blue("│   │   └── package.json"));
+    console.log(kleur.blue("│   └── pb/           # PocketBase"));
+    console.log(kleur.blue("│       ├── pb_data/"));
+    console.log(kleur.blue("│       ├── pb_migrations/"));
+    console.log(kleur.blue("│       ├── pb_hooks/"));
+    console.log(kleur.blue("│       ├── Dockerfile"));
+    console.log(kleur.blue("│       └── package.json"));
+    console.log(kleur.blue("└── .github/"));
+    console.log(kleur.blue("    └── workflows/"));
+    console.log(kleur.blue("        └── deploy_pocketbase.yml"));
   } catch (error) {
     spinner.fail(kleur.red("Failed to create project"));
     console.error(kleur.red(error.message));
