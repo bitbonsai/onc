@@ -6,16 +6,7 @@
   "bin": {
     "bit": "./src/cli.js"
   },
-  "scripts": {
-    "test": "node --test tests/",
-    "test:watch": "node --test --watch tests/",
-    "test:integration": "node --test tests/integration/",
-    "test:new": "node --test tests/commands/new.test.js",
-    "test:pb": "node --test tests/commands/pb.test.js",
-    "test:docker": "node --test tests/commands/docker.test.js",
-    "test:all": "npm run test && npm run test:integration",
-    "test:clean": "rm -rf test-project && docker rm -f test-project-pb || true"
-  },
+  "scripts": {},
   "keywords": [
     "cli",
     "astro",
