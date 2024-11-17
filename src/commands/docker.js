@@ -37,6 +37,28 @@ async function executeCommand(command) {
   }
 }
 
+async function checkContainer(containerName) {
+  try {
+    const { stdout } = await execAsync(
+      `docker ps -a --filter "name=${containerName}" --format '{{.Names}}'`,
+    );
+    return stdout.trim() !== "";
+  } catch (error) {
+    return false;
+  }
+}
+
+async function checkContainerRunning(containerName) {
+  try {
+    const { stdout } = await execAsync(
+      `docker ps --filter "name=${containerName}" --format '{{.Names}}'`,
+    );
+    return stdout.trim() !== "";
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function handleDockerCommand(subcommand, args) {
   const spinner = ora().start();
 

@@ -71,7 +71,7 @@ async function createAstro(projectPath, spinner) {
         [
           "create-astro@latest",
           "--template",
-          "basics",
+          "blank",
           "--install",
           "--no-git",
           "--skip-houston",

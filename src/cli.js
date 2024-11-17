@@ -8,6 +8,8 @@ import { handleDockerCommand } from "./commands/docker.js";
 import { handleDbCommand } from "./commands/db.js";
 import { handlePocketBaseCommand } from "./commands/pb.js";
 import { handleStartCommand } from "./commands/start.js";
+import { handleUpgradeCommand } from "./commands/upgrade.js";
+import { handleVersionCommand } from "./commands/version.js";
 
 const cli = meow(
   `
@@ -17,6 +19,8 @@ const cli = meow(
     ${kleur.green("$")} onc <command> [options]
 
   ${kleur.bold("Commands:")}
+    ${kleur.blue("version")}
+    ${kleur.blue("upgrade")}
     ${kleur.blue("new")} [name]      Create a new project
     ${kleur.blue("start")}          Start development environment
 
@@ -148,6 +152,14 @@ async function run() {
         process.exit(1);
       }
       await handlePocketBaseCommand(subcommand);
+      break;
+    }
+    case "version": {
+      await handleVersionCommand();
+      break;
+    }
+    case "upgrade": {
+      await handleUpgradeCommand();
       break;
     }
     default: {

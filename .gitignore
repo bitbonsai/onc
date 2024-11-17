@@ -36,3 +36,6 @@ logs
 # Optional eslint cache
 .eslintcache
 
+#test project
+test
+test-project
