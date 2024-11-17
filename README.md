@@ -2,18 +2,22 @@
 
 > Better Install This
 
+[![npm version](https://badge.fury.io/js/%40mauricio.wolff%2Fbit.svg)](https://www.npmjs.com/package/@mauricio.wolff/bit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Built by [BitBonsai](https://github.com/bitbonsai)
 
 ## What's this?
 
 Just a tiny tool to help you spin up web projects faster. No magic, just convenience.
 
-## Global Installation
-
-### npm
+## Installation
 
 ```bash
 npm install -g @mauricio.wolff/bit
+
+# Check installation
+bit version
 ```
 
 ## Quick Start
@@ -121,7 +125,7 @@ npm run test:clean
 
 ## Automated Deployment
 
-GitHub Actions workflow automates the deployment of your PocketBase backend to fly.io. Here's what it does:
+Our GitHub Actions workflow automates the deployment of your PocketBase backend to fly.io. Here's what it does:
 
 - 🔍 Triggers on pushes to the `main` branch
 - 🚢 Deploys only when changes are made to the PocketBase directory
@@ -166,7 +170,6 @@ fly tokens create deploy
 
 ### Port Conflicts
 If you see port conflict errors:
-
 ```bash
 bit pb stop          # Stop existing PocketBase
 bit pb cleanup       # Clean up containers
@@ -187,9 +190,11 @@ Because setting up projects shouldn't feel like homework.
 
 ## Contributing
 
-- Found a bug? Open an issue.
-- Want a feature? Send a PR.
-- No complicated guidelines. Just be cool.
+Found a bug? Open an issue.
+
+Want a feature? Send a PR.
+
+No complicated guidelines. Just be cool.
 
 ## License
 
