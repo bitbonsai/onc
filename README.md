@@ -121,7 +121,7 @@ npm run test:clean
 
 ## Automated Deployment
 
-Our GitHub Actions workflow automates the deployment of your PocketBase backend to fly.io. Here's what it does:
+GitHub Actions workflow automates the deployment of your PocketBase backend to fly.io. Here's what it does:
 
 - 🔍 Triggers on pushes to the `main` branch
 - 🚢 Deploys only when changes are made to the PocketBase directory
@@ -145,7 +145,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
-      ```
+```
 
 ## Setting Up Deployment Token
 
@@ -166,6 +166,7 @@ fly tokens create deploy
 
 ### Port Conflicts
 If you see port conflict errors:
+
 ```bash
 bit pb stop          # Stop existing PocketBase
 bit pb cleanup       # Clean up containers
@@ -186,11 +187,9 @@ Because setting up projects shouldn't feel like homework.
 
 ## Contributing
 
-Found a bug? Open an issue.
-
-Want a feature? Send a PR.
-
-No complicated guidelines. Just be cool.
+- Found a bug? Open an issue.
+- Want a feature? Send a PR.
+- No complicated guidelines. Just be cool.
 
 ## License
 
