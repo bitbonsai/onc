@@ -1,6 +1,6 @@
 {
   "name": "@mauricio.wolff/bit",
-  "version": "0.0.1",
+  "version": "1.0.20",
   "description": "CLI tool for scaffolding Astro + PocketBase projects",
   "type": "module",
   "bin": {
