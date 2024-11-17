@@ -29,7 +29,7 @@ export async function handleVersionCommand() {
     // Check for updates
     try {
       const response = await fetch(
-        "https://registry.npmjs.org/@mauricio.wolff%2Fbit/latest",
+        "https://registry.npmjs.org/@mauricio.wolff/bit/latest",
       );
       if (!response.ok) {
         throw new Error("Failed to fetch latest version from npm");
