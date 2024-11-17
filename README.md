@@ -89,7 +89,7 @@ my-project/
 └── .github/
     └── workflows/
         └── deploy_pocketbase.yml  # Automated deployment
-        ```
+```
 
 ## Development
 
