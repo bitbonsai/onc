@@ -1,42 +1,53 @@
-// src/commands/version.js
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import kleur from "kleur";
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execAsync = promisify(exec);
+
+async function getPackageInfo() {
+  try {
+    const { stdout } = await execAsync(
+      "npm list -g @mauricio.wolff/bit --json",
+    );
+    const parsed = JSON.parse(stdout);
+    return parsed.dependencies["@mauricio.wolff/bit"];
+  } catch (error) {
+    throw new Error(
+      "Failed to get package information. Is bit installed globally?",
+    );
+  }
+}
 
 export async function handleVersionCommand() {
   try {
-    // Get package.json path
-    const __dirname = dirname(fileURLToPath(import.meta.url));
-    const packagePath = join(__dirname, "../../package.json");
-
-    // Read package.json
-    const pkg = JSON.parse(await readFile(packagePath, "utf8"));
-
-    // Display version
-    console.log(`bit version ${kleur.green(pkg.version)}`);
+    const packageInfo = await getPackageInfo();
+    console.log(`bit version ${kleur.green(packageInfo.version)}`);
 
     // Check for updates
-    const latestVersion = await getLatestVersion();
-    if (latestVersion && latestVersion !== pkg.version) {
-      console.log(
-        kleur.yellow("\nUpdate available!") +
-          kleur.gray(` ${pkg.version} → ${latestVersion}`),
+    try {
+      const response = await fetch(
+        "https://registry.npmjs.org/@mauricio.wolff%2Fbit/latest",
       );
-      console.log(kleur.blue("Run `bit upgrade` to update"));
+      if (!response.ok) {
+        throw new Error("Failed to fetch latest version from npm");
+      }
+      const { version: latestVersion } = await response.json();
+
+      if (latestVersion && latestVersion !== packageInfo.version) {
+        console.log(
+          kleur.yellow("\nUpdate available!") +
+            kleur.gray(` ${packageInfo.version} → ${latestVersion}`),
+        );
+        console.log(kleur.blue("Run `bit upgrade` to update"));
+      }
+    } catch (error) {
+      // Silently fail version check
     }
   } catch (error) {
     console.error(kleur.red("Error getting version:", error.message));
     process.exit(1);
-  }
-}
-
-async function getLatestVersion() {
-  try {
-    const response = await fetch("https://registry.npmjs.org/bit/latest");
-    const data = await response.json();
-    return data.version;
-  } catch (error) {
-    return null;
   }
 }

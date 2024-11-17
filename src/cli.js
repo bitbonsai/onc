@@ -8,26 +8,27 @@ import { handleDockerCommand } from "./commands/docker.js";
 import { handleDbCommand } from "./commands/db.js";
 import { handlePocketBaseCommand } from "./commands/pb.js";
 import { handleStartCommand } from "./commands/start.js";
-import { handleUpgradeCommand } from "./commands/upgrade.js";
 import { handleVersionCommand } from "./commands/version.js";
+import { handleUpgradeCommand } from "./commands/upgrade.js";
 
 const cli = meow(
   `
-  ${kleur.cyan("🌱 bit")}  ${kleur.gray("Better Install This. BIT by BIT")}
+  ${kleur.cyan("🌱 bit")}  ${kleur.gray("Better Install This")}
 
   ${kleur.bold("Usage:")}
     ${kleur.green("$")} bit <command> [options]
 
   ${kleur.bold("Commands:")}
-    ${kleur.blue("version")}
-    ${kleur.blue("upgrade")}
     ${kleur.blue("new")} [name]      Create a new project
     ${kleur.blue("start")}          Start development environment
+    ${kleur.blue("version")}        Show current version
+    ${kleur.blue("upgrade")}        Upgrade to latest version
 
     ${kleur.bold("PocketBase Commands:")}
     ${kleur.blue("pb setup")}        First-time PocketBase setup
     ${kleur.blue("pb start")}        Start PocketBase
     ${kleur.blue("pb stop")}         Stop PocketBase
+    ${kleur.blue("pb cleanup")}      Clean up containers and data
 
     ${kleur.bold("Docker Commands:")}
     ${kleur.blue("docker build")}    Build Docker image
@@ -82,8 +83,15 @@ async function run() {
       break;
     }
     case "start": {
-      console.log(kleur.cyan("Starting development environment..."));
-      // TODO: Implement start command to run both PB and Astro
+      await handleStartCommand();
+      break;
+    }
+    case "version": {
+      await handleVersionCommand();
+      break;
+    }
+    case "upgrade": {
+      await handleUpgradeCommand();
       break;
     }
     case "pb": {
@@ -93,23 +101,10 @@ async function run() {
         console.log("  setup    First-time PocketBase setup");
         console.log("  start    Start PocketBase");
         console.log("  stop     Stop PocketBase");
+        console.log("  cleanup  Clean up containers and data");
         process.exit(1);
       }
-      // TODO: Implement PocketBase commands
-      switch (subcommand) {
-        case "setup":
-          console.log(kleur.cyan("Setting up PocketBase..."));
-          break;
-        case "start":
-          console.log(kleur.cyan("Starting PocketBase..."));
-          break;
-        case "stop":
-          console.log(kleur.cyan("Stopping PocketBase..."));
-          break;
-        default:
-          console.error(kleur.red(`Unknown PocketBase command: ${subcommand}`));
-          process.exit(1);
-      }
+      await handlePocketBaseCommand(subcommand, args);
       break;
     }
     case "docker": {
@@ -136,30 +131,6 @@ async function run() {
         process.exit(1);
       }
       await handleDbCommand(subcommand, args);
-      break;
-    }
-    case "start": {
-      await handleStartCommand();
-      break;
-    }
-    case "pb": {
-      if (!subcommand) {
-        console.error(kleur.red("PocketBase subcommand is required"));
-        console.log(kleur.blue("\nAvailable commands:"));
-        console.log("  setup    First-time PocketBase setup");
-        console.log("  start    Start PocketBase");
-        console.log("  stop     Stop PocketBase");
-        process.exit(1);
-      }
-      await handlePocketBaseCommand(subcommand);
-      break;
-    }
-    case "version": {
-      await handleVersionCommand();
-      break;
-    }
-    case "upgrade": {
-      await handleUpgradeCommand();
       break;
     }
     default: {
