@@ -4,7 +4,7 @@
   "description": "CLI tool for scaffolding Astro + PocketBase projects",
   "type": "module",
   "bin": {
-    "bit": "./src/cli.js"
+    "bit": "src/cli.js"
   },
   "scripts": {
     "test": "node --test tests/",
