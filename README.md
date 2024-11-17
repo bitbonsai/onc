@@ -1,8 +1,6 @@
-# 🌱 onc
+# 🌱 bit
 
-> **O**ne **N**ice **C**L 
-
-(Can also be a short for **onc**e... but in reality it's hard to find a memorable 3 letter npm package name available)
+> Better Install This
 
 Built by [BitBonsai](https://github.com/bitbonsai)
 
@@ -15,7 +13,7 @@ Just a tiny tool to help you spin up web projects faster. No magic, just conveni
 ### npm
 
 ```bash
-npm install -g onc
+npm install -g @mauricio.wolff/bit
 ```
 
 ## Quick Start
@@ -23,35 +21,58 @@ npm install -g onc
 ### Create a project
 
 ```bash
-onc new my-cool-project
+bit new my-cool-project
 ```
 
 ### Run local development
 
 ```bash
-onc dev
+bit dev
 ```
 
 ### Deploy to production
 
 ```bash
-onc deploy
+bit deploy
 ```
 
 ## What You Get
 
-- 🚀 Astro.js project
+- 🚀 Astro.js project (latest version)
 - 📦 PocketBase database
 - 🐳 Docker setup
 - 🚢 fly.io deployment config
+- 🧪 Testing setup
+- 🔄 Auto-update system
 
 ## Commands That Actually Work
 
-- `onc new` - Start a new project
-- `onc dev` - Run local development
-- `onc docker` - Docker-related commands
-- `onc db` - Database management
-- `onc deploy` - Ship it to production
+### Project Commands
+- `bit new` - Start a new project
+- `bit dev` - Run local development
+- `bit deploy` - Ship it to production
+
+### Docker Commands
+- `bit docker build` - Build Docker image
+- `bit docker up` - Start container
+- `bit docker down` - Stop container
+- `bit docker logs [-f]` - Show container logs (use -f to follow)
+- `bit docker shell` - Access container shell
+
+### Database Commands
+- `bit db studio` - Open PocketBase Admin UI
+- `bit db backup` - Create database backup
+- `bit db migrate` - Create new migration
+
+### PocketBase Commands
+- `bit pb setup` - First-time PocketBase setup
+- `bit pb start` - Start PocketBase
+- `bit pb stop` - Stop PocketBase
+- `bit pb cleanup [--all] [--data]` - Clean up containers and data
+
+### System Commands
+- `bit version` - Show current version
+- `bit upgrade` - Upgrade to latest version
 
 ## Project Structure
 
@@ -60,10 +81,43 @@ my-project/
 ├── apps/
 │   ├── web/    # Your Astro app
 │   └── pb/     # PocketBase setup
+│       ├── pb_data/
+│       ├── pb_migrations/
+│       ├── pb_hooks/
+│       ├── Dockerfile
+│       └── package.json
 └── .github/
     └── workflows/
         └── deploy_pocketbase.yml  # Automated deployment
+        ```
+
+## Development
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run specific tests
+npm run test:pb          # PocketBase tests
+npm run test:docker      # Docker tests
+npm run test:new         # Project creation tests
+
+# Watch mode for development
+npm run test:watch
+
+# Clean test environment
+npm run test:clean
 ```
+
+### Test Coverage
+- ✅ Project creation
+- ✅ PocketBase operations
+- ✅ Docker commands
+- ✅ Database management
+- ✅ Version control
+- ✅ Upgrade process
 
 ## Automated Deployment
 
@@ -91,7 +145,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
-```
+      ```
 
 ## Setting Up Deployment Token
 
@@ -102,12 +156,29 @@ fly tokens create deploy
 ```
 
 2. Add the token to your GitHub repository:
-
    - Go to your GitHub repository
    - Navigate to Settings → Secrets → Actions
    - Create a new repository secret
    - Name the secret: `FLY_API_TOKEN`
    - Paste the token from fly.io
+
+## Troubleshooting
+
+### Port Conflicts
+If you see port conflict errors:
+```bash
+bit pb stop          # Stop existing PocketBase
+bit pb cleanup       # Clean up containers
+bit pb start         # Start fresh
+```
+
+### Container Issues
+For Docker-related issues:
+```bash
+bit docker cleanup   # Remove problematic containers
+bit docker build     # Rebuild image
+bit docker up        # Start fresh
+```
 
 ## Why Another Tool?
 

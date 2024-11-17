@@ -81,8 +81,8 @@ export async function handleDockerCommand(subcommand, args) {
             spinner.succeed("Container started successfully");
           } else if (error.message.includes("already in use")) {
             spinner.info("Container already exists. Try:");
-            console.log(kleur.blue("\n  onc docker down"));
-            console.log(kleur.blue("  onc docker up\n"));
+            console.log(kleur.blue("\n  bit docker down"));
+            console.log(kleur.blue("  bit docker up\n"));
             process.exit(1);
           } else {
             throw error;
@@ -103,7 +103,7 @@ export async function handleDockerCommand(subcommand, args) {
         if (!containerName) {
           console.error(kleur.red("Container not found. Is it running?"));
           console.log(kleur.blue("\nTry starting it first:"));
-          console.log(kleur.blue("  onc docker up"));
+          console.log(kleur.blue("  bit docker up"));
           process.exit(1);
         }
 
@@ -131,7 +131,7 @@ export async function handleDockerCommand(subcommand, args) {
         if (!containerName) {
           console.error(kleur.red("Container not found. Is it running?"));
           console.log(kleur.blue("\nTry starting it first:"));
-          console.log(kleur.blue("  onc docker up"));
+          console.log(kleur.blue("  bit docker up"));
           process.exit(1);
         }
 
@@ -170,8 +170,8 @@ export async function handleDockerCommand(subcommand, args) {
   } catch (error) {
     spinner.fail(kleur.red(error.message));
     console.log("\nTry running these commands to fix common issues:");
-    console.log(kleur.blue("  onc docker down"));
-    console.log(kleur.blue("  onc docker up"));
+    console.log(kleur.blue("  bit docker down"));
+    console.log(kleur.blue("  bit docker up"));
     process.exit(1);
   }
 }

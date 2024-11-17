@@ -1,10 +1,10 @@
 {
-  "name": "onc",
+  "name": "bit",
   "version": "1.0.0",
   "description": "CLI tool for scaffolding Astro + PocketBase projects",
   "type": "module",
   "bin": {
-    "onc": "./src/cli.js"
+    "bit": "./src/cli.js"
   },
   "scripts": {
     "test": "node --test tests/",

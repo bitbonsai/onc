@@ -124,10 +124,10 @@ export async function createProject(name) {
 
     console.log("\n" + kleur.bold("Next steps:"));
     console.log(kleur.blue(`  cd ${name}`));
-    console.log(kleur.blue("  onc pb setup    # First-time PocketBase setup"));
-    console.log(kleur.blue("  onc pb start    # Start PocketBase"));
+    console.log(kleur.blue("  bit pb setup    # First-time PocketBase setup"));
+    console.log(kleur.blue("  bit pb start    # Start PocketBase"));
     console.log(
-      kleur.blue("  onc start       # Start both PocketBase and Astro"),
+      kleur.blue("  bit start       # Start both PocketBase and Astro"),
     );
 
     console.log("\n" + kleur.bold("Available endpoints:"));

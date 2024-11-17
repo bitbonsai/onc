@@ -79,7 +79,7 @@ export async function handlePocketBaseCommand(subcommand, args = []) {
             kleur.blue(`  kill ${pid}  # Stop the process using the port`),
           );
           console.log(
-            kleur.blue("  onc pb start  # Try starting PocketBase again"),
+            kleur.blue("  bit pb start  # Try starting PocketBase again"),
           );
           process.exit(1);
         }
@@ -115,8 +115,8 @@ export async function handlePocketBaseCommand(subcommand, args = []) {
           if (error.message.includes("port is already allocated")) {
             spinner.fail("Port conflict detected");
             console.log(kleur.yellow("\nTry these commands:"));
-            console.log(kleur.blue("  onc pb stop"));
-            console.log(kleur.blue("  onc pb start"));
+            console.log(kleur.blue("  bit pb stop"));
+            console.log(kleur.blue("  bit pb start"));
           } else {
             throw error;
           }

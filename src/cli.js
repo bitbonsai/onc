@@ -13,10 +13,10 @@ import { handleVersionCommand } from "./commands/version.js";
 
 const cli = meow(
   `
-  ${kleur.cyan("🌱 onc")}  ${kleur.gray("One Nice CLI")}
+  ${kleur.cyan("🌱 bit")}  ${kleur.gray("Better Install This. BIT by BIT")}
 
   ${kleur.bold("Usage:")}
-    ${kleur.green("$")} onc <command> [options]
+    ${kleur.green("$")} bit <command> [options]
 
   ${kleur.bold("Commands:")}
     ${kleur.blue("version")}
@@ -42,12 +42,12 @@ const cli = meow(
     ${kleur.blue("db migrate")}      Create new migration
 
   ${kleur.bold("Examples:")}
-    ${kleur.green("$")} onc new my-awesome-app
-    ${kleur.green("$")} onc pb setup
-    ${kleur.green("$")} onc start
-    ${kleur.green("$")} onc docker logs
+    ${kleur.green("$")} bit new my-awesome-app
+    ${kleur.green("$")} bit pb setup
+    ${kleur.green("$")} bit start
+    ${kleur.green("$")} bit docker logs
 
-  ${kleur.gray("For more info, visit: https://github.com/bitbonsai/onc")}
+  ${kleur.gray("For more info, visit: https://github.com/bitbonsai/bit")}
 `,
   {
     importMeta: import.meta,
