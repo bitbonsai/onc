@@ -25,19 +25,13 @@ bit version
 ### Create a project
 
 ```bash
-bit new my-cool-project
+bit new my-project
 ```
 
-### Run local development
+### Start development environment
 
 ```bash
-bit dev
-```
-
-### Deploy to production
-
-```bash
-bit deploy
+bit start
 ```
 
 ## What You Get
@@ -46,17 +40,19 @@ bit deploy
 - 📦 PocketBase database
 - 🐳 Docker setup
 - 🚢 fly.io deployment config
-- 🧪 Testing setup
 - 🔄 Auto-update system
 
 ## Commands That Actually Work
 
 ### Project Commands
-- `bit new` - Start a new project
-- `bit dev` - Run local development
-- `bit deploy` - Ship it to production
+
+- `bit new [name]` - Create a new project
+- `bit start` - Start development environment
+- `bit version` - Show current version
+- `bit upgrade` - Upgrade to latest version
 
 ### Docker Commands
+
 - `bit docker build` - Build Docker image
 - `bit docker up` - Start container
 - `bit docker down` - Stop container
@@ -64,19 +60,17 @@ bit deploy
 - `bit docker shell` - Access container shell
 
 ### Database Commands
+
 - `bit db studio` - Open PocketBase Admin UI
 - `bit db backup` - Create database backup
 - `bit db migrate` - Create new migration
 
 ### PocketBase Commands
+
 - `bit pb setup` - First-time PocketBase setup
 - `bit pb start` - Start PocketBase
 - `bit pb stop` - Stop PocketBase
 - `bit pb cleanup [--all] [--data]` - Clean up containers and data
-
-### System Commands
-- `bit version` - Show current version
-- `bit upgrade` - Upgrade to latest version
 
 ## Project Structure
 
@@ -94,34 +88,6 @@ my-project/
     └── workflows/
         └── deploy_pocketbase.yml  # Automated deployment
 ```
-
-## Development
-
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run specific tests
-npm run test:pb          # PocketBase tests
-npm run test:docker      # Docker tests
-npm run test:new         # Project creation tests
-
-# Watch mode for development
-npm run test:watch
-
-# Clean test environment
-npm run test:clean
-```
-
-### Test Coverage
-- ✅ Project creation
-- ✅ PocketBase operations
-- ✅ Docker commands
-- ✅ Database management
-- ✅ Version control
-- ✅ Upgrade process
 
 ## Automated Deployment
 
@@ -169,7 +135,9 @@ fly tokens create deploy
 ## Troubleshooting
 
 ### Port Conflicts
+
 If you see port conflict errors:
+
 ```bash
 bit pb stop          # Stop existing PocketBase
 bit pb cleanup       # Clean up containers
@@ -177,11 +145,13 @@ bit pb start         # Start fresh
 ```
 
 ### Container Issues
+
 For Docker-related issues:
+
 ```bash
-bit docker cleanup   # Remove problematic containers
-bit docker build     # Rebuild image
-bit docker up        # Start fresh
+bit docker down     # Stop container
+bit docker build    # Rebuild image
+bit docker up       # Start fresh
 ```
 
 ## Why Another Tool?
@@ -190,11 +160,9 @@ Because setting up projects shouldn't feel like homework.
 
 ## Contributing
 
-Found a bug? Open an issue.
-
-Want a feature? Send a PR.
-
-No complicated guidelines. Just be cool.
+- Found a bug? Open an issue.
+- Want a feature? Send a PR.
+- No complicated guidelines. Just be cool.
 
 ## License
 
