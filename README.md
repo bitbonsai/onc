@@ -28,11 +28,17 @@ bit version
 bit new my-project
 ```
 
-### Start development environment
+### Start Development Environment
 
 ```bash
 bit start
 ```
+
+This command:
+
+- Starts PocketBase in Docker (http://localhost:8090)
+- Opens PocketBase Admin UI (http://localhost:8090/\_)
+- Starts Astro dev server in a new terminal (http://localhost:4321)
 
 ## What You Get
 
